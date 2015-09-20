@@ -11,7 +11,7 @@
 lines for developers")
 
 #License
-Check the [License](https://github.com/nfvlabs/openmano/blob/master/LICENSE "license") file.
+
 
 #Contact
 
