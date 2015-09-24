@@ -1,55 +1,19 @@
-/**
-* Copyright 2015 Telefónica Investigación y Desarrollo, S.A.U.
-* This file is part of openmano
-* All Rights Reserved.
-*
-* Licensed under the Apache License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may obtain
-* a copy of the License at
-*
-*         http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-* WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-* License for the specific language governing permissions and limitations
-* under the License.
-*
-* For those usages not covered by the Apache License, Version 2.0 please
-* contact with: nfvlabs@tid.es
-**/
--- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (x86_64)
---
--- Host: localhost    Database: mano_db
--- ------------------------------------------------------
--- Server version	5.5.35-1ubuntu1
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `mano_db`
+-- Current Database: `VNFCatalog`
 --
 
-/*!40000 DROP DATABASE IF EXISTS `mano_db`*/;
+/*!40000 DROP DATABASE IF EXISTS `VNFCatalog`*/;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `mano_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `VNFCatalog` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `mano_db`;
+USE `VNFCatalog`;
 
 --
--- Table structure for table `datacenter_nets`
+-- Table structure for table `vim_nets`
 --
 
-DROP TABLE IF EXISTS `datacenter_nets`;
+DROP TABLE IF EXISTS `vim_nets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `datacenter_nets` (
@@ -70,11 +34,13 @@ CREATE TABLE `datacenter_nets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contain the external nets of a datacenter';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
 --
--- Table structure for table `datacenters`
+-- Table structure for table `vim`
 --
 
-DROP TABLE IF EXISTS `datacenters`;
+DROP TABLE IF EXISTS `vim`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `datacenters` (
@@ -142,7 +108,7 @@ CREATE TABLE `instance_nets` (
 -- Table structure for table `instance_scenarios`
 --
 
-DROP TABLE IF EXISTS `instance_scenarios`;
+DROP TABLE IF EXISTS `instance_NS`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `instance_scenarios` (
@@ -151,7 +117,7 @@ CREATE TABLE `instance_scenarios` (
   `scenario_id` varchar(36) NOT NULL,
   `nfvo_tenant_id` varchar(36) NOT NULL,
   `vim_tenant_id` varchar(36) NOT NULL,
-  `datacenter_id` varchar(36) NOT NULL,
+  `vim_id` varchar(36) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NULL DEFAULT NULL,
@@ -304,7 +270,7 @@ CREATE TABLE `nfvo_tenants` (
 -- Table structure for table `sce_interfaces`
 --
 
-DROP TABLE IF EXISTS `sce_interfaces`;
+DROP TABLE IF EXISTS `ns_interfaces`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sce_interfaces` (
@@ -328,7 +294,7 @@ CREATE TABLE `sce_interfaces` (
 -- Table structure for table `sce_nets`
 --
 
-DROP TABLE IF EXISTS `sce_nets`;
+DROP TABLE IF EXISTS `ns_nets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sce_nets` (
@@ -352,7 +318,7 @@ CREATE TABLE `sce_nets` (
 -- Table structure for table `sce_vnfs`
 --
 
-DROP TABLE IF EXISTS `sce_vnfs`;
+DROP TABLE IF EXISTS `ns_vnfs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sce_vnfs` (
@@ -377,7 +343,7 @@ CREATE TABLE `sce_vnfs` (
 -- Table structure for table `scenarios`
 --
 
-DROP TABLE IF EXISTS `scenarios`;
+DROP TABLE IF EXISTS `ns`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `scenarios` (
@@ -395,11 +361,14 @@ CREATE TABLE `scenarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='Scenarios defined by the user';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+tenants_vim infrastrute
+CREATE TABLE 'tenants '
+
 --
 -- Table structure for table `tenants_datacenters`
 --
 
-DROP TABLE IF EXISTS `tenants_datacenters`;
+DROP TABLE IF EXISTS `tenants_vim`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tenants_datacenters` (
@@ -495,7 +464,7 @@ CREATE TABLE `vnfs` (
   `public` enum('true','false') NOT NULL DEFAULT 'true',
   `description` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` timestamp NULL DEFAULT NULL,
+  `modified_at` timestamp NULL DEFAULT NULL, 
   `class` varchar(36) DEFAULT 'MISC',
   PRIMARY KEY (`uuid`),
   UNIQUE KEY `name` (`name`),
@@ -504,6 +473,8 @@ CREATE TABLE `vnfs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+
+
 -- Dumping routines for database 'mano_db'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+   CCCCCCCCCCCCCCCCCCCCCCCCCCCCC                                              # -*- coding: utf-8 -*-
 
 ##
 # Copyright 2015 Telefónica Investigación y Desarrollo, S.A.U.

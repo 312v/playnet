@@ -22,7 +22,7 @@
 ##
 
 
-DBUSER="mano"
+DBUSER="stack"
 DBPASS=""
 DBHOST="localhost"
 DBPORT="3306"

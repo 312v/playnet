@@ -114,6 +114,9 @@ if __name__=="__main__":
         usage()
         sys.exit(2)
         
+        
+        
+         
     creds = {}
     creds['version'] = os.environ.get('OS_VERSION', '2')
     creds['username'] = os.environ.get('OS_USERNAME')
@@ -128,6 +131,8 @@ if __name__=="__main__":
             sys.exit()
         elif o in ("-v", "--version"):
             creds['version']=a
+        
+        
         elif o in ("-u", "--username"):
             creds['username']=a
         elif o in ("-p", "--password"):
