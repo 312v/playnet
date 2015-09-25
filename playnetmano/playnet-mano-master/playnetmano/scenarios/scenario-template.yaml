@@ -10,7 +10,6 @@ topology:
     vnf2:
       type:      VNF
       VNF model: vnf_model2
-      # Optional information for display in the openmano-gui: graphical position of the node and its interfaces
       graph:     {"y":399,"x":632,"ifaces":{"left":[["xe0","d"],["xe1","d"]],"bottom":[["eth0","v"],["eth1","m"]]}}
     bridge1:                  # Bridge networks must be declared in this section if we want to interconnect VNFs using a Linux bridge
       type:      network

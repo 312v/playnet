@@ -1,6 +1,0 @@
-network:
-    name:               macvtap:em1
-    type:               bridge_man
-    provider:physical:  macvtap:em1
-    shared:             true
-

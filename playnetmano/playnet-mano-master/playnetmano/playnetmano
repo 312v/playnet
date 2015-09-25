@@ -1,35 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# PYTHON_ARGCOMPLETE_OK
 
-##
-# Copyright 2015 Telefónica Investigación y Desarrollo, S.A.U.
-# This file is part of openmano
-# All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License. You may obtain
-# a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations
-# under the License.
-#
-# For those usages not covered by the Apache License, Version 2.0 please
-# contact with: nfvlabs@tid.es
-##
-
-'''
-openmano client used to interact with openmano-server (openmanod) 
-'''
-__author__="Alfonso Tierno, Gerardo Garcia"
-__date__ ="$09-oct-2014 09:09:48$"
-__version__="0.3.3-r400"
-version_date="Jul 2015"
 
 from argcomplete.completers import FilesCompleter
 import os
@@ -48,15 +17,15 @@ class ThrowingArgumentParser(argparse.ArgumentParser):
         self.print_usage()
         #self.print_help()
         print
-        print "Type 'openmano -h' for help"
+        print "Type 'playnetmano -h' for help"
         raise ArgumentParserError
 
 
 def config(args):
-    print "OPENMANO_HOST: %s" %mano_host
-    print "OPENMANO_PORT: %s" %mano_port
-    print "OPENMANO_TENANT: %s" %mano_tenant
-    print "OPENMANO_DATACENTER: %s" %str (mano_datacenter)
+    print "playnetmano_HOST: %s" %mano_host
+    print "playnetmano_PORT: %s" %mano_port
+    print "playnetmano_TENANT: %s" %mano_tenant
+    print "playnetmano_DATACENTER: %s" %str (mano_datacenter)
 
 
 def _print_verbose(mano_response, verbose_level=0):
@@ -194,16 +163,16 @@ def vnf_create(args):
         
     #print payload_req
         
-    URLrequest = "http://%s:%s/openmano/%s/vnfs" %(mano_host, mano_port, mano_tenant)
+    URLrequest = "http://%s:%s/playnetmano/%s/vnfs" %(mano_host, mano_port, mano_tenant)
     mano_response = requests.post(URLrequest, headers = headers_req, data=payload_req)
     return _print_verbose(mano_response, args.verbose)
 
 def vnf_list(args):
     #print "vnf-list",args
     if args.name:
-        URLrequest = "http://%s:%s/openmano/%s/vnfs/%s" %(mano_host, mano_port, mano_tenant, args.name)
+        URLrequest = "http://%s:%s/playnetmano/%s/vnfs/%s" %(mano_host, mano_port, mano_tenant, args.name)
     else:
-        URLrequest = "http://%s:%s/openmano/%s/vnfs" %(mano_host, mano_port, mano_tenant)
+        URLrequest = "http://%s:%s/playnetmano/%s/vnfs" %(mano_host, mano_port, mano_tenant)
     mano_response = requests.get(URLrequest)
     #print mano_response
     content = mano_response.json()
@@ -260,7 +229,7 @@ def vnf_delete(args):
         r = raw_input("Delete VNF %s (y/N)? " %(args.name))
         if  not (len(r)>0  and r[0].lower()=="y"):
             return 0
-    URLrequest = "http://%s:%s/openmano/%s/vnfs/%s" %(mano_host, mano_port, mano_tenant, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/vnfs/%s" %(mano_host, mano_port, mano_tenant, args.name)
     mano_response = requests.delete(URLrequest)
     #print mano_response
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -293,16 +262,16 @@ def scenario_create(args):
     
     #print payload_req
         
-    URLrequest = "http://%s:%s/openmano/%s/scenarios" %(mano_host, mano_port, mano_tenant)
+    URLrequest = "http://%s:%s/playnetmano/%s/scenarios" %(mano_host, mano_port, mano_tenant)
     mano_response = requests.post(URLrequest, headers = headers_req, data=payload_req)
     return _print_verbose(mano_response, args.verbose)
 
 def scenario_list(args):
     #print "scenario-list",args
     if args.name:
-        URLrequest = "http://%s:%s/openmano/%s/scenarios/%s" %(mano_host, mano_port, mano_tenant, args.name)
+        URLrequest = "http://%s:%s/playnetmano/%s/scenarios/%s" %(mano_host, mano_port, mano_tenant, args.name)
     else:
-        URLrequest = "http://%s:%s/openmano/%s/scenarios" %(mano_host, mano_port, mano_tenant)
+        URLrequest = "http://%s:%s/playnetmano/%s/scenarios" %(mano_host, mano_port, mano_tenant)
     mano_response = requests.get(URLrequest)
     #print mano_response
     content = mano_response.json()
@@ -360,7 +329,7 @@ def scenario_delete(args):
         r = raw_input("Delete scenario %s (y/N)? " %(args.name))
         if  not (len(r)>0  and r[0].lower()=="y"):
             return 0
-    URLrequest = "http://%s:%s/openmano/%s/scenarios/%s" %(mano_host, mano_port, mano_tenant, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/scenarios/%s" %(mano_host, mano_port, mano_tenant, args.name)
     mano_response = requests.delete(URLrequest)
     #print mano_response
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -391,7 +360,7 @@ def scenario_deploy(args):
     payload_req = json.dumps(action, indent=4)
     #print payload_req
 
-    URLrequest = "http://%s:%s/openmano/%s/scenarios/%s/action" %(mano_host, mano_port, mano_tenant, args.scenario)
+    URLrequest = "http://%s:%s/playnetmano/%s/scenarios/%s/action" %(mano_host, mano_port, mano_tenant, args.scenario)
     mano_response = requests.post(URLrequest, headers = headers_req, data=payload_req)
     if args.verbose==None:
         args.verbose=0
@@ -412,7 +381,7 @@ def scenario_deploy(args):
         print myoutput
         print ""
         print "To check the status, run the following command:"
-        print "openmano instance-scenario-list <instance_id>"
+        print "playnetmano instance-scenario-list <instance_id>"
     else:
         print content['error']['description']
     return result
@@ -426,7 +395,7 @@ def scenario_verify(args):
     payload_req = json.dumps(action, indent=4)
     #print payload_req
 
-    URLrequest = "http://%s:%s/openmano/%s/scenarios/%s/action" %(mano_host, mano_port, mano_tenant, args.scenario)
+    URLrequest = "http://%s:%s/playnetmano/%s/scenarios/%s/action" %(mano_host, mano_port, mano_tenant, args.scenario)
     mano_response = requests.post(URLrequest, headers = headers_req, data=payload_req)
     
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -441,9 +410,9 @@ def scenario_verify(args):
 def instance_scenario_list(args):
     #print "instance-scenario-list",args
     if args.name:
-        URLrequest = "http://%s:%s/openmano/%s/instances/%s" %(mano_host, mano_port, mano_tenant, args.name)
+        URLrequest = "http://%s:%s/playnetmano/%s/instances/%s" %(mano_host, mano_port, mano_tenant, args.name)
     else:
-        URLrequest = "http://%s:%s/openmano/%s/instances" %(mano_host, mano_port, mano_tenant)
+        URLrequest = "http://%s:%s/playnetmano/%s/instances" %(mano_host, mano_port, mano_tenant)
     mano_response = requests.get(URLrequest)
     #print mano_response
     content = mano_response.json()
@@ -513,7 +482,7 @@ def instance_scenario_delete(args):
         r = raw_input("Delete scenario instance %s (y/N)? " %(args.name))
         if  not (len(r)>0  and r[0].lower()=="y"):
             return
-    URLrequest = "http://%s:%s/openmano/%s/instances/%s" %(mano_host, mano_port, mano_tenant, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/instances/%s" %(mano_host, mano_port, mano_tenant, args.name)
     mano_response = requests.delete(URLrequest)
     #print mano_response
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -542,16 +511,16 @@ def tenant_create(args):
     
     #print payload_req
         
-    URLrequest = "http://%s:%s/openmano/tenants" %(mano_host, mano_port)
+    URLrequest = "http://%s:%s/playnetmano/tenants" %(mano_host, mano_port)
     mano_response = requests.post(URLrequest, headers=headers_req, data=payload_req)
     return _print_verbose(mano_response, args.verbose)
 
 def tenant_list(args):
     #print "tenant-list",args
     if args.name:
-        URLrequest = "http://%s:%s/openmano/tenants/%s" %(mano_host, mano_port, args.name)
+        URLrequest = "http://%s:%s/playnetmano/tenants/%s" %(mano_host, mano_port, args.name)
     else:
-        URLrequest = "http://%s:%s/openmano/tenants" %(mano_host, mano_port)
+        URLrequest = "http://%s:%s/playnetmano/tenants" %(mano_host, mano_port)
     mano_response = requests.get(URLrequest)
     if args.verbose==None:
         args.verbose=0
@@ -565,7 +534,7 @@ def tenant_delete(args):
         r = raw_input("Delete tenant %s (y/N)? " %(args.name))
         if  not (len(r)>0  and r[0].lower()=="y"):
             return 0
-    URLrequest = "http://%s:%s/openmano/tenants/%s" %(mano_host, mano_port, args.name)
+    URLrequest = "http://%s:%s/playnetmano/tenants/%s" %(mano_host, mano_port, args.name)
     mano_response = requests.delete(URLrequest)
     #print mano_response
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -593,7 +562,7 @@ def datacenter_attach(args):
     
     #print payload_req
         
-    URLrequest = "http://%s:%s/openmano/%s/datacenters/%s" %(mano_host, mano_port, mano_tenant, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/datacenters/%s" %(mano_host, mano_port, mano_tenant, args.name)
     mano_response = requests.post(URLrequest, headers=headers_req, data=payload_req)
     result = _print_verbose(mano_response, args.verbose)
     #provide addional information if error
@@ -606,10 +575,11 @@ def datacenter_attach(args):
 
 def datacenter_detach(args):
     headers_req = {'Accept': 'application/json', 'content-type': 'application/json'}
-    URLrequest = "http://%s:%s/openmano/%s/datacenters/%s" %(mano_host, mano_port, mano_tenant, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/datacenters/%s" %(mano_host, mano_port, mano_tenant, args.name)
     mano_response = requests.delete(URLrequest, headers=headers_req)
     content = mano_response.json()
     #print json.dumps(content, indent=4)
+    
     result = 0 if mano_response.status_code==200 else mano_response.status_code
     if mano_response.status_code == 200:
         print content['result']
@@ -632,7 +602,7 @@ def datacenter_create(args):
     
     #print payload_req
         
-    URLrequest = "http://%s:%s/openmano/datacenters" %(mano_host, mano_port)
+    URLrequest = "http://%s:%s/playnetmano/datacenters" %(mano_host, mano_port)
     mano_response = requests.post(URLrequest, headers=headers_req, data=payload_req)
     return _print_verbose(mano_response, args.verbose)
 
@@ -642,7 +612,7 @@ def datacenter_delete(args):
         r = raw_input("Delete datacenter %s (y/N)? " %(args.name))
         if  not (len(r)>0  and r[0].lower()=="y"):
             return 0
-    URLrequest = "http://%s:%s/openmano/datacenters/%s" %(mano_host, mano_port, args.name)
+    URLrequest = "http://%s:%s/playnetmano/datacenters/%s" %(mano_host, mano_port, args.name)
     mano_response = requests.delete(URLrequest)
     #print mano_response
     result = 0 if mano_response.status_code==200 else mano_response.status_code
@@ -658,9 +628,9 @@ def datacenter_list(args):
     #print "datacenter-list",args
     tenant='any' if args.all else mano_tenant
     if args.name:
-        URLrequest = "http://%s:%s/openmano/%s/datacenters/%s" %(mano_host, mano_port, tenant, args.name)
+        URLrequest = "http://%s:%s/playnetmano/%s/datacenters/%s" %(mano_host, mano_port, tenant, args.name)
     else:
-        URLrequest = "http://%s:%s/openmano/%s/datacenters" %(mano_host, mano_port, tenant)
+        URLrequest = "http://%s:%s/playnetmano/%s/datacenters" %(mano_host, mano_port, tenant)
     mano_response = requests.get(URLrequest)
     if args.verbose==None:
         args.verbose=0
@@ -674,13 +644,13 @@ def datacenter_net_action(args):
     if args.verbose==None:
         args.verbose=0
     if args.action=="net-list":
-        URLrequest = "http://%s:%s/openmano/datacenters/%s/networks" %(mano_host, mano_port, args.datacenter)
+        URLrequest = "http://%s:%s/playnetmano/datacenters/%s/networks" %(mano_host, mano_port, args.datacenter)
         mano_response = requests.get(URLrequest)
         if args.datacenter!=None:
             args.verbose += 1
     else:
         headers_req = {'Accept': 'application/json', 'content-type': 'application/json'}
-        URLrequest = "http://%s:%s/openmano/%s/datacenters/%s/action" %(mano_host, mano_port, mano_tenant, args.datacenter)
+        URLrequest = "http://%s:%s/playnetmano/%s/datacenters/%s/action" %(mano_host, mano_port, mano_tenant, args.datacenter)
         if not args.force:
             if args.action=="net-update":
                 r = raw_input(" Edit datacenter " + args.datacenter + " (y/N)? ")
@@ -706,7 +676,7 @@ def datacenter_net_action(args):
 
 def element_edit(args):
     headers_req = {'Accept': 'application/json', 'content-type': 'application/json'}
-    URLrequest = "http://%s:%s/openmano/%s/%s" %(mano_host, mano_port, args.element, args.name)
+    URLrequest = "http://%s:%s/playnetmano/%s/%s" %(mano_host, mano_port, args.element, args.name)
     payload=_load_file_or_yaml(args.file)
     if args.element[:-1] not in payload:
         payload = {args.element[:-1]: payload }
@@ -733,12 +703,12 @@ global mano_tenant
 
 if __name__=="__main__":
     
-    mano_tenant = os.getenv('OPENMANO_TENANT',"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb")
-    mano_host = os.getenv('OPENMANO_HOST',"localhost")
-    mano_port = os.getenv('OPENMANO_PORT',"9090")
-    mano_datacenter = os.getenv('OPENMANO_DATACENTER',None)
+    mano_tenant = os.getenv('playnetmano_TENANT',"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb")
+    mano_host = os.getenv('playnetmano_HOST',"localhost")
+    mano_port = os.getenv('playnetmano_PORT',"9090")
+    mano_datacenter = os.getenv('playnetmano_DATACENTER',None)
     
-    main_parser = ThrowingArgumentParser(description='User program to interact with OPENMANO-SERVER (openmanod)')
+    main_parser = ThrowingArgumentParser(description='User program to interact with playnetmano-SERVER (playnetmanod)')
     main_parser.add_argument('--version', action='version', version='%(prog)s ' + __version__ )
     
     subparsers = main_parser.add_subparsers(help='commands')
@@ -766,7 +736,7 @@ if __name__=="__main__":
     vnf_delete_parser.add_argument("-f", "--force", action="store_true", help="forces deletion without asking")
     vnf_delete_parser.set_defaults(func=vnf_delete)
     
-    scenario_create_parser = subparsers.add_parser('scenario-create', help="adds a scenario into the OPENMANO DB")
+    scenario_create_parser = subparsers.add_parser('scenario-create', help="adds a scenario into the playnetmano DB")
     scenario_create_parser.add_argument("file", action="store", help="location of the YAML file describing the scenario").completer = FilesCompleter
     scenario_create_parser.add_argument("--name", action="store", help="name of the scenario (if it exists in the YAML scenario, it is overwritten)")
     scenario_create_parser.add_argument("--description", action="store", help="description of the scenario (if it exists in the YAML scenario, it is overwritten)")
@@ -780,7 +750,7 @@ if __name__=="__main__":
     #scenario_list_parser.add_argument('--descriptor', help="prints the scenario descriptor", action="store_true")
     scenario_list_parser.set_defaults(func=scenario_list)
     
-    scenario_delete_parser = subparsers.add_parser('scenario-delete', help="deletes a scenario from the OPENMANO DB")
+    scenario_delete_parser = subparsers.add_parser('scenario-delete', help="deletes a scenario from the playnetmano DB")
     scenario_delete_parser.add_argument("name", action="store", help="name or uuid of the scenario to be deleted")
     scenario_delete_parser.add_argument("-f", "--force", action="store_true", help="forces deletion without asking")
     scenario_delete_parser.set_defaults(func=scenario_delete)
@@ -842,7 +812,7 @@ if __name__=="__main__":
     datacenter_create_parser.add_argument("name", action="store", help="name for the datacenter")
     datacenter_create_parser.add_argument("url", action="store", help="url for the datacenter")
     datacenter_create_parser.add_argument("--url_admin", action="store", help="url for administration for the datacenter")
-    datacenter_create_parser.add_argument("--type", action="store", help="datacenter type: openstack or openvim (default)")
+    datacenter_create_parser.add_argument("--type", action="store", help="datacenter type: openstack")
     datacenter_create_parser.add_argument("--config", action="store", help="aditional configuration in json/yaml format")
     datacenter_create_parser.add_argument("--description", action="store", help="description of the datacenter")
     datacenter_create_parser.add_argument('--verbose', '-v', action='count')
@@ -899,10 +869,10 @@ if __name__=="__main__":
             result = 0
         #for some reason it fails if call exit inside try instance. Need to call exit at the end !?
     except (requests.exceptions.ConnectionError):
-        print "Connection error: not possible to contact OPENMANO-SERVER (openmanod)"
+        print "Connection error: not possible to contact playnetmano-SERVER (playnetmanod)"
         result = -2
     except (KeyboardInterrupt):
-        print 'Exiting openmano'
+        print 'Exiting playnetmano'
         result = -3
     except (SystemExit, ArgumentParserError):
         result = -4

@@ -1,13 +1,10 @@
 eclipse.preferences.version=1
-encoding//playnet-mano-master/openvim/floodlight.py=utf-8
-encoding//playnet-mano-master/openvim/host_thread.py=utf-8
-encoding//playnet-mano-master/openvim/openflow=utf-8
-encoding//playnet-mano-master/openvim/openflow_thread.py=utf-8
+encoding//playnet-mano-master/playnetmano/httpserver.py=utf-8
 encoding//playnet-mano-master/playnetmano/nfvo.py=utf-8
 encoding//playnet-mano-master/playnetmano/nfvo_db.py=utf-8
-encoding//playnet-mano-master/playnetmano/openmano_schemas.py=utf-8
-encoding//playnet-mano-master/playnetmano/openmanod.py=utf-8
 encoding//playnet-mano-master/playnetmano/osconnector.py=utf-8
+encoding//playnet-mano-master/playnetmano/playnetmano=utf-8
+encoding//playnet-mano-master/playnetmano/playnetmano_schemas.py=utf-8
+encoding//playnet-mano-master/playnetmano/playnetmanod.py=utf-8
 encoding//playnet-mano-master/playnetmano/test/test_osconnector.py=utf-8
 encoding//playnet-mano-master/playnetmano/utils/auxiliary_functions.py=utf-8
-encoding//playnet-mano-master/playnetmano/vimconnector.py=utf-8
